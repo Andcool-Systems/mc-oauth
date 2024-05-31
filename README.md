@@ -17,6 +17,7 @@ The code is valid only once and for 5 minutes (by default) after it is received.
 ```json
 {
   "nickname": "AndcoolSystems",
-  "UUID": "1420C63C-B111-4453-993F-B3479BA1D4C6"
+  "UUID": "1420c63c-b111-4453-993f-b3479ba1d4c6",
+  "status": "success"
 }
 ```
