@@ -8,6 +8,8 @@ import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import java.util.Random;
 import java.util.UUID;
 
+import org.json.JSONObject;
+
 public class PlayerPreLoginListener implements Listener {
 
     @EventHandler
@@ -20,8 +22,10 @@ public class PlayerPreLoginListener implements Listener {
 
         String kickMessage = "Your code is: " + code;
         event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, kickMessage);
-        Oauth.expiringMap.put(String.valueOf(code), String.format("{\"nickname\": \"%s\", \"UUID\": \"%S\"}",
-                playerName,
-                playerId.toString().toLowerCase()));
+        JSONObject jsonResponse = new JSONObject();
+        jsonResponse.put("status", "success");
+        jsonResponse.put("nickname", playerName);
+        jsonResponse.put("UUID", playerId.toString().toLowerCase());
+        Oauth.expiringMap.put(String.valueOf(code), jsonResponse);
     }
 }

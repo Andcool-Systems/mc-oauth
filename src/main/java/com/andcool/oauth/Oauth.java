@@ -14,13 +14,14 @@ import java.util.regex.Pattern;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Level;
+import org.json.JSONObject;
 
 import com.andcool.oauth.hashMap.ExpiringHashMap;
 import com.andcool.oauth.config.UserConfig;
 
 public final class Oauth extends JavaPlugin {
     private HttpServer server;
-    public static ExpiringHashMap<String, String> expiringMap = new ExpiringHashMap<>(5 * 60 * 1000);
+    public static ExpiringHashMap<String, JSONObject> expiringMap = new ExpiringHashMap<>(5 * 60 * 1000);
     public static final Logger LOGGER = LogManager.getLogger("mc-oauth");
     public static void betterLog(Level level, String message) {
         LOGGER.log(level, String.format("[%s]: %s", "mc-oauth", message));
@@ -62,16 +63,24 @@ public final class Oauth extends JavaPlugin {
 
             if (matcher.matches()) {
                 String code = matcher.group(1);
-                String result = expiringMap.get(code);
+                JSONObject result = expiringMap.get(code);
                 if (result == null){
-                    response = "{\"message\": \"Code not found\"}";
+                    JSONObject jsonResponse = new JSONObject();
+                    jsonResponse.put("status", "error");
+                    jsonResponse.put("message", "Code not found");
+                    jsonResponse.put("status_code", 404);
+                    response = jsonResponse.toString();
                     status_code = 404;
                 }else{
-                    response = result;
+                    response = result.toString();
                     expiringMap.remove(code);
                 }
             } else {
-                response = "{\"message\": \"Not found\"}";
+                JSONObject jsonResponse = new JSONObject();
+                jsonResponse.put("status", "error");
+                jsonResponse.put("message", "Not found");
+                jsonResponse.put("status_code", 404);
+                response = jsonResponse.toString();
                 status_code = 404;
             }
 
