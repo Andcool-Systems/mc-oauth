@@ -1,6 +1,7 @@
 # Simple Minecraft OAuth Service
 
-This service allows you to implement user login on your website without needing to log in to a Microsoft account.
+This service allows you to implement user login on your website without needing to log in to a Microsoft account.  
+Minecraft server IP: **mc-oauth.andcool.ru** (1.12 — 1.20.*)
 
 ## How It Works
 The plugin is installed on a Bukkit server (you can also add ViaVersion for a wider range of versions).  
