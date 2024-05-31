@@ -1,0 +1,4 @@
+name: mc-oauth
+version: '${version}'
+main: com.andcool.oauth.Oauth
+api-version: '1.20'
